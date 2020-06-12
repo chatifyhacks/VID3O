@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="/room/style.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <title>VID3O Private Room</title>
+	<script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'>
+	</script>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+	<div class="copy">Share the URL or Meeting ID to add a friend</div>
+  
+  <video id="localVideo" autoplay muted></video>
+  <div id="controls">
+    <button class="control" onclick="toggleMic()"><i class="material-icons" id="mic_icon">mic</i></button><br><br>
+    <button class="control" onclick="toggleCam()"><i class="material-icons" id="cam_icon">videocam</i></button><br><br>
+    <button class="control end" onclick="endCall()"><i class="material-icons" id="call_end">call_end</i></button>
+  </div>
+	<video id="remoteVideo" autoplay></video>
+
+  <footer>Meeting ID: <span id="meetingid"><i>Generating</i></span>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="/room/script.js"></script>
+</body>
+
+</html>

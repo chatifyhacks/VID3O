@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>VID3O</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+  <h1>VID3O</h1>
+	<button onclick="window.location.href='/room'"><h3>Create Meeting</h3></button>
+  <br>
+  <form onsubmit="join(event)">
+    <h3>Join Meeting</h31>
+    <input id="meetingid" type="text" placeholder="Enter the Meeting ID" maxlength="6"></input>
+    <button>Join</button>
+  </form>
+  <div id="vl"></div>
+
+  <footer><p>Created by The Motley Crew</p></span>
+  </footer>
+
+  <script>
+    function join(room) {
+      room.preventDefault();
+      var meetingid = document.querySelector("#meetingid").value;
+      if (!meetingid) {
+        alert("Please enter a valid Meeting ID");
+        return;
+      }
+      window.location.href = "/room#" + meetingid;
+    }
+  </script>
+</body>
+
+</html>
