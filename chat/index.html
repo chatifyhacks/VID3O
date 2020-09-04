@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<!-- VERSION 1.4.1 -->
+<html>
+<head>
+  <script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'></script>
+  <link rel="stylesheet" type="text/css" href="/chat/style.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <title>VID3O Chat Room</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+    <div class="members-count">-</div>
+    <div class="members-list">-</div>
+    <div class="messages"></div>
+    <form class="message-form" onsubmit="return false;">
+      <input class="message-form__input" placeholder="Type a message.." type="text"/>
+      <!--input class="message-form__button" type="submit" /-->
+      <button class="message-form__button" type="submit" onclick="sendAudio()"><i class="material-icons">send</i></button>
+  </form>
+  <script src="/chat/script.js"></script>
+</body>
+</html>

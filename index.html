@@ -4,24 +4,34 @@
 <head>
   <title>VID3O</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-  <link rel="icon" type="image/png" href="/images/favicon.png">
-  <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.png" type="image/png">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDKWorker.js" async=""></script>
+  <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+      OneSignal.init({
+        appId: "cb3f5be6-a16c-44e1-8d8f-30d796ceeaf4",
+      });
+    });
+  </script>
 </head>
-
 <body>
-  <h1>VID3O</h1>
-	<button onclick="window.location.href='/room'"><h3>Create Meeting</h3></button>
+  <h1><i class="material-icons" style="font-size: 250%; margin: none">videocam</i><br>
+  VID3O</h1>
+	<button onclick="window.location.href='/room'" title="Create a Meeting"><i class="material-icons">add</i></button>
   <br>
   <form onsubmit="join(event)">
     <h3>Join Meeting</h31>
-    <input id="meetingid" type="text" placeholder="Enter the Meeting ID" maxlength="6"></input>
-    <button>Join</button>
+    <input id="meetingid" type="text" placeholder="Meeting ID" maxlength="6"></input>
+    <button title="Join Meeting"><i class="material-icons">call_made</i></button>
   </form>
   <div id="vl"></div>
 
-  <footer><p>Created by The Motley Crew</p></span>
+  <footer><p>Created by <a href="mailto:vid3o.ml@gmail.com">Chatify</a> &mdash; v 1.4.2</p></span>
   </footer>
 
   <script>
@@ -34,6 +44,17 @@
       }
       window.location.href = "/room#" + meetingid;
     }
+     function processAjaxData(response, urlPath){
+     document.getElementById("content").innerHTML = response.html;
+     document.title = response.pageTitle;
+     window.history.pushState({"html":response.html,"pageTitle":response.pageTitle},"", urlPath);
+ }
+ window.onpopstate = function(e){
+    if(e.state){
+        document.getElementById("content").innerHTML = e.state.html;
+        document.title = e.state.pageTitle;
+    }
+};
   </script>
 </body>
 

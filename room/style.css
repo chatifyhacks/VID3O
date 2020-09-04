@@ -56,13 +56,16 @@ video {
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
-  max-width: calc(50% - 5%);
-  margin: 0 5%;
+  width: 53%;
+  margin: 0 2%;
   box-sizing: border-box;
   border-radius: 2px;
   padding: 0;
 }
 
+.mirror {
+  transform: scaleX(-1);
+}
 /*.videoContainer {
   object-fit: cover;
   margin: 0 auto;
@@ -104,6 +107,20 @@ footer {
   text-align: center;
 }
 
+#clipboard_copy {
+  font-size: 18px;
+  transition: .2s;
+}
+
+#clipboard_copy:hover {
+  transform: scale(1.3);
+}
+
+#clipboard_copy:active {
+  border-radius: 50%;
+  background-color: white;
+}
+
 #controls {
   flex-direction: column;
 }
@@ -122,12 +139,138 @@ footer {
   text-align: center;
   vertical-align: middle;
   outline: none;
+  transition: transform .2s;
+}
+
+.control > i {
+  vertical-align: middle;
 }
 
 .control:hover {
-  border-color: white;
+  border-color: rgba(255,255,255, 0.2);
+  background-color: rgb(94, 94, 94);
+  transform: scale(1.2);
 }
 
 .end {
+  border-color: rgb(180, 40, 40);
   background-color: #D32F2F;
+}
+
+.end:hover {
+  border-color: rgb(200, 50, 50);
+  background-color: rgb(215, 67, 67);
+}
+
+.modal {
+	display: none;
+	position: fixed;
+	padding-top: 50px;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+iframe {
+  min-height: 500px;
+  background-color: #121212;
+  border: none;
+  outline: none;
+}
+
+.modal-content {
+  position: relative; 
+  background-color: #121212;
+  padding: 20px; 
+  margin: auto; 
+  width: 75%;  
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s
+}
+
+.close-btn {
+  float: right; 
+  color: #5E5E5E; 
+  font-size: 40px;  
+  font-weight: bold;
+  cursor: pointer;
+  margin-right: 8%;
+  z-index: 1;
+}
+
+.close-btn:hover {
+  color: #FFFFFF;
+}
+
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.navbar {
+  background-color: #333;
+  overflow: visible;
+  position: fixed;
+  transform: translateY(-90%);
+  transition: transform .5s cubic-bezier(.4,0,.2,1);
+  left: 0;
+  margin-top: 0;
+  height: 100%;
+  width: 100px;
+  text-align: center;
+}
+
+#dropdown_icon {
+  vertical-align: middle;
+  transform: scale(1.5) rotate(0deg);
+  color: white;
+  transition-property: transform;
+  transition-duration: 0.5s;
+}
+
+.navbar:hover {
+  transform: translateY(0);
+}
+
+.navbar:hover #dropdown_icon {
+  transform: scale(1.5) rotate(180deg);
+}
+
+.navbar a {
+  float: left;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.navbar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.navbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+hr {
+  opacity: 0%;
+}
+
+input {
+  position: fixed;
+  margin-top: 0px;
+  top: 0px;
 }

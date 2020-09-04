@@ -1,33 +1,56 @@
 <!DOCTYPE html>
+<!-- VERSION 1.4.1 -->
 <html>
 
 <head>
 	<link rel="stylesheet" type="text/css" href="/room/style.css">
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-  <link rel="icon" type="image/png" href="/images/favicon.png">
-  <title>VID3O Private Room</title>
+  <script src="https://cdn.onesignal.com/sdks/OneSignalSDK.js" async=""></script>
+  <script>
+    window.OneSignal = window.OneSignal || [];
+    OneSignal.push(function() {
+      OneSignal.init({
+        appId: "cb3f5be6-a16c-44e1-8d8f-30d796ceeaf4",
+      });
+    });
+  </script>
+  <title>VID3O Meeting Room</title>
 	<script type='text/javascript' src='https://cdn.scaledrone.com/scaledrone.min.js'>
 	</script>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-  <link rel="icon" type="image/png" href="/favicon.png">
+  <link rel="icon" href="/favicon.png" type="image/png">
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
+  <input id="meetingname" type="text">
 	<div class="copy">Share the URL or Meeting ID to add a friend</div>
   
-  <video id="localVideo" autoplay muted></video>
-  <div id="controls">
-    <button class="control" onclick="toggleMic()"><i class="material-icons" id="mic_icon">mic</i></button><br><br>
-    <button class="control" onclick="toggleCam()"><i class="material-icons" id="cam_icon">videocam</i></button><br><br>
-    <button class="control end" onclick="endCall()"><i class="material-icons" id="call_end">call_end</i></button>
-  </div>
+  <video id="localVideo" class='mirror' autoplay muted></video>
 	<video id="remoteVideo" autoplay></video>
 
-  <footer>Meeting ID: <span id="meetingid"><i>Generating</i></span>
-  </footer>
+  <div class="modal">
+  <div class="modal-header">
+    <span class="close-btn">&times;</span>
+  </div>
+  <div class="modal-content">
+    <iframe id="chat" src="/chat" height="100%" width="100%"></iframe>
+  </div>
+</div>
 
+  <footer>Meeting ID: <span id="meetingid"><i>Generating</i></span> <i class="material-icons" id="clipboard_copy" onclick="copyLink()">file_copy</i>
+  </footer>
+  <div class="navbar">
+    <br><br>
+    <button class="control" onclick="toggleMic()"><i class="material-icons" id="mic_icon">mic</i></button><br><br><br>
+    <button class="control" onclick="toggleCam()"><i class="material-icons" id="cam_icon">videocam</i></button><br><br><br>
+    <button class="control" id="modal-btn"><i class="material-icons" id="chat_icon">chat</i></button><br><br><br>
+    <button class="control" onclick="toggleScreenshare()"><i class="material-icons" id="screenshare_icon">screen_share</i></button><br><br><br>
+    <button class="control end" onclick="endCall()"><i class="material-icons" id="call_end">call_end</i></button>
+    <br><br><hr>
+    <h1><i class="material-icons" id="dropdown_icon">keyboard_arrow_down</i></h2>
+  </div>
   <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
   <script src="/room/script.js"></script>
 </body>

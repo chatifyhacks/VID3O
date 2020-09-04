@@ -1,0 +1,80 @@
+body {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 10px;
+	display: flex;
+	flex-direction: column;
+	max-height: 100vh;
+	font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #121212;
+  color: white;
+  outline: none;
+}
+
+.members-count,
+.members-list,
+.messages {
+	border: 1px solid #1E1E1E;
+  background-color: #1E1E1E;
+	padding: 15px;
+	margin-bottom: 15px;
+  color: white;
+}
+
+.messages {
+	flex-shrink: 1;
+	overflow: auto;
+  background-color: #1E1E1E;
+  color: white;
+}
+
+.message {
+	padding: 5px 0;
+}
+
+.message .member {
+	display: inline-block;
+}
+
+.member {
+	padding-right: 10px;
+	position: relative;
+}
+
+.message-form {
+	display: flex;
+	flex-shrink: 0;
+}
+
+.message-form__input {
+	flex-grow: 1;
+	border: 1px solid #1E1E1E;
+	padding: 10px 15px;
+	font-size: 16px;
+  background-color: #1E1E1E;
+  color: white;
+  margin-right: 10px;
+  outline: none;
+}
+
+.message-form__button {
+  border-radius: 50%;
+  background-color: #1E1E1E;
+	border-width: 1px;
+	border-color: #1D1D1D;
+	border-style: solid;
+	color: white;
+	cursor: pointer;
+  width: 4rem;
+  height: 4rem;
+  text-align: center;
+  vertical-align: middle;
+  outline: none;
+  transition: transform .2s;
+}
+
+.message-form__button:hover {
+  border-color: rgba(255,255,255, 0.2);
+  background-color: rgb(94, 94, 94);
+  transform: scale(1.2);
+}

@@ -16,11 +16,10 @@ const configuration = {
 let room;
 let pc;
 
-$( document ).ready(function() {
+$(document).ready(function() {
   // Display room ID to user
   $("#meetingid").html(roomHash);
-  // Hide controls
-  //$("#controls").hide();
+  $("#chat").attr("src", "/chat#" + roomHash)
 });
 
 function onSuccess() { };
@@ -56,6 +55,12 @@ function sendMessage(message) {
   });
 }
 
+let videostream = navigator.mediaDevices.getUserMedia({
+  audio: true,
+  video: true,
+});
+
+
 function startWebRTC(isOfferer) {
   pc = new RTCPeerConnection(configuration);
 
@@ -79,10 +84,7 @@ function startWebRTC(isOfferer) {
     remoteVideo.srcObject = event.stream;
   };
 
-  navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true,
-  }).then(stream => {
+  videostream.then(stream => {
     // Display your local video in #localVideo element
     localVideo.srcObject = stream;
     // Add your stream to be sent to the conneting peer
@@ -168,7 +170,8 @@ function toggleCam() {
     updateStream();
     console.log("cam off");
     $("#cam_icon").html("videocam_off");
-  } else { // turns on if it is already off
+  } 
+  else { // turns on if it is already off
     cam = true;
     updateStream();
     console.log("cam on");
@@ -177,14 +180,23 @@ function toggleCam() {
 }
 
 function updateStream() {
-  navigator.mediaDevices.getUserMedia({
-    audio: mic,
-    video: cam,
-  }).then(stream => {
+  videostream.then(stream => {
+    let sender = pc.getSenders();
+    stream.getTracks().forEach( track => {
+      console.log(track)
+      if (track.kind === "audio") {
+        track.enabled = mic;
+        sender[0].replaceTrack(track);
+      }
+      if (track.kind === "video") {
+        track.enabled = cam;
+        sender[1].replaceTrack(track);
+      }
+    })
+    console.log(stream.getTracks())
     // Display your local video in #localVideo element
     localVideo.srcObject = stream;
     // Add your stream to be sent to the conneting peer
-    pc.addStream(stream);
   }, onError);
 }
 
@@ -192,7 +204,96 @@ function endCall() {
   window.location.href = "/";
 }
 
-// function hover() {
-//   let stuff = document.getElementById("mic_icon");
-//   stuff.style.backgroundColor = "red";
-// }
+// Copy current session link to clipboard
+function copyLink() {
+  let dummy = document.createElement('input'),
+    text = window.location.href;
+  document.body.appendChild(dummy);
+  dummy.value = text;
+  dummy.select();
+  document.execCommand('copy');
+  document.body.removeChild(dummy);
+}
+
+var screenshare = false;
+let mirrored = true;
+
+function toggleScreenshare() {
+  if (screenshare == false) { // turns on if it is already off
+    screenshare = true;
+    screenShare();
+    updateStream();
+    toggleMirror();
+    console.log("screenshare on");
+    $("#screenshare_icon").html("stop_screen_share");
+  } else { // turns off if it is already on
+    screenshare = false;
+    // Stopping screenshare should start webcam (if not disabled)
+    webCam();
+    updateStream();
+    toggleMirror();
+    console.log("screenshare off");
+    $("#screenshare_icon").html("screen_share");
+  }
+}
+
+function screenShare() {
+   videostream = navigator.mediaDevices.getDisplayMedia({
+    video: {
+      cursor: 'motion',
+      displaySurface: 'monitor'
+    }
+  });
+}
+
+function webCam() {
+  videostream = navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: true,
+  });
+}
+
+function toggleMirror() {
+  console.log(mirrored);
+  let localVideo = document.getElementById("localVideo")
+  if (mirrored) {
+    localVideo.classList.remove('mirror');
+    mirrored = false;
+  } else {
+    localVideo.classList.add('mirror');
+    mirrored = true;
+  }
+}
+
+let modalBtn = document.getElementById("modal-btn")
+let modal = document.querySelector(".modal")
+let closeBtn = document.querySelector(".close-btn")
+modalBtn.onclick = function(){
+  modal.style.display = "block"
+}
+closeBtn.onclick = function(){
+  modal.style.display = "none"
+}
+document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    if (evt.keyCode == 27) {
+        modal.style.display = "none"
+    }
+};
+window.onclick = function(e){
+  if(e.target == modal){
+    modal.style.display = "none"
+  }
+}
+document.addEventListener('keydown', function(event) {
+  if (event.ctrlKey && event.key === 'c') {
+    modal.style.display = "block"
+  }
+});
+
+const input = document.querySelector("input");
+const title = document.querySelector("title");
+input.addEventListener("change", e => {
+  title.innerText = input.value;
+  document.getElementById('meetingname').value='';
+});

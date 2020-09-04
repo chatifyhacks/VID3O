@@ -11,15 +11,25 @@ body {
 }
 
 button {
-	background-color: #1E1E1E;
-	border-width: 10px;
+  border-radius: 50%;
+  background-color: #1E1E1E;
+	border-width: 2px;
 	border-color: #1D1D1D;
 	border-style: solid;
-	padding: 10px;
 	color: white;
 	cursor: pointer;
-	text-align: center;
+  width: 4rem;
+  height: 4rem;
+  text-align: center;
+  vertical-align: middle;
   outline: none;
+  transition: transform .2s;
+}
+
+button:hover {
+  border-color: rgba(255,255,255, 0.2);
+  background-color: rgb(94, 94, 94);
+  transform: scale(1.2);
 }
 
 h1, h2, h3 {
@@ -35,6 +45,12 @@ input {
 	color: #CCC;
 	border: none;
 	margin: 1rem 0rem;
+  outline: none;
+}
+
+input:focus {
+  border: none;
+  border-color: rgba(255,255,255, 0.2);
 }
 
 form {
@@ -50,4 +66,13 @@ footer {
   font-size: 0.7rem;
   color: white;
   text-align: center;
+}
+
+#meetingnamediv {
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  color: white;
 }
